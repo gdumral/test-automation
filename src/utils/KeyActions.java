@@ -9,6 +9,9 @@ import org.openqa.selenium.interactions.Actions;
 
 import net.bytebuddy.implementation.bind.annotation.Default;
 
+import utils.Constants;
+
+@SuppressWarnings("unused") 
 public class KeyActions {
 	
 	public static void findAndClick(WebDriver driver, By elementLocator) throws InterruptedException  {
@@ -26,8 +29,8 @@ public class KeyActions {
 		
 	}
 
-	public static void dragAndDrop(WebDriver driver, By elementLocator, int xOffset, int yOffset, int count ) throws InterruptedException  {
-		Actions action = new Actions(driver);
+	public static void dragAndDrop(WebDriver driver, By elementLocator, int xOffset, int yOffset, int count )   {
+		Actions action = new Actions(driver);		
 		WebElement el = driver.findElement(elementLocator);
 		for (int i = 0; i < count; i++) {		
 			action.dragAndDropBy(el, xOffset, yOffset).pause(Duration.ofSeconds(1)).click().pause(Duration.ofSeconds(2)).build().perform();

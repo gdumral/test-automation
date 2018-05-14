@@ -46,8 +46,10 @@ import net.lightbody.bmp.mitm.KeyStoreFileCertificateSource;
 import net.lightbody.bmp.mitm.manager.ImpersonatingMitmManager;
 import net.lightbody.bmp.proxy.CaptureType;
 
+ 
 
-public class Utilities {
+@SuppressWarnings("unused") 
+public class Utilities implements Constants {
 	
 //	System.setProperty("webdriver.chrome.driver", "/TestAutomation/chromedriver.exe");
 
@@ -59,7 +61,7 @@ public class Utilities {
 		BrowserMobProxy bmp = new BrowserMobProxyServer();
 		bmp.setTrustAllServers(true); //need for invalid certificate
         bmp.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT);
-		bmp.newHar("ziggo.nl");			
+		bmp.newHar(HAR_FILE_LABEL);
 		bmp.start();
 		return bmp;
 	}
@@ -84,7 +86,7 @@ public class Utilities {
 		logPrefs.enable(LogType.DRIVER, Level.ALL);
 		options.setCapability(CapabilityType.LOGGING_PREFS,logPrefs);
 		options.setCapability(CapabilityType.PROXY, seleniumProxy);
-		System.setProperty("webdriver.chrome.driver", "C:\\TestAutomation\\chromedriver.exe");	
+		System.setProperty("webdriver.chrome.driver", DRIVER_PATH);	
 		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
 		return driver;
@@ -94,7 +96,6 @@ public class Utilities {
 
 
 		writeToHar(bmp);
-	//	printLog(bmp);
 		bmp.stop();
 	}
 	
@@ -104,35 +105,56 @@ public class Utilities {
 
 		List<HarEntry> entries = har.getLog().getEntries();
 		
-		for(HarEntry entry :entries){
+		for(HarEntry entry :entries) {
 			HarRequest request = entry.getRequest();
 			HarResponse response= entry.getResponse();
-//			String keyword = "\"category\":";
-			String keyword = "errorCode:";
+			int statusCode = response.getStatus();
+			String keyword = "errorCode";
 			String errorCode= new String();
 			int i;
 
-			//if (request.getUrl().contains("https://cws.conviva.com") && request.getMethod().equals("POST"))  {			
-				if (request.getPostData() != null ) {
-					if (request.getPostData().getText().contains(keyword)) {
-						System.out.format("%s %s %s %n", request.getMethod(), request.getUrl(), response.getStatus());
-						//System.out.println(request.getPostData().getText().substring(keyword.lastIndexOf(":")));
-						i = request.getPostData().getText().indexOf(keyword);
-//						errorCode=request.getPostData().getText().substring(i+12, i+16);
-						errorCode=request.getPostData().getText().substring(i+11, i+16);
-						System.out.format("Conviva errorCode: %s %n", errorCode);
-					}
+//			//if (request.getUrl().contains("https://cws.conviva.com") && request.getMethod().equals("POST"))  {			
+//			if (request.getUrl().contains("https://cws.conviva.com") && request.getPostData() != null) {
+//				System.out.format("%s %s %n %s %n", request.getMethod(), request.getUrl(), request.getPostData().getText());
+//			}
+			
+			try{
+				Assert.assertEquals(200, statusCode);
+			}catch (AssertionError e) {
+				if (statusCode == 400){
+					System.out.println(request.getUrl() + " - " + HTTP_400_ERROR);
+				} else if (statusCode == 401) {
+					System.out.println(request.getUrl() + " - " +  HTTP_401_ERROR);
+				} else if (statusCode == 403) {
+					System.out.println(request.getUrl() + " - " +  HTTP_403_ERROR);
+				} else if (statusCode == 404) {
+					System.out.println(request.getUrl() + " - " +  HTTP_404_ERROR);
+				} else if (statusCode == 500) {
+					System.out.println(request.getUrl() + " - " +  HTTP_500_ERROR);
+				} else if (statusCode == 502) {
+					System.out.println(request.getUrl() + " - " +  HTTP_502_ERROR);
+				} else if (statusCode == 503) {
+					System.out.println(request.getUrl() + " - " +  HTTP_503_ERROR);
+				} else if (statusCode == 504) {
+					System.out.println(request.getUrl() + " - " +  HTTP_504_ERROR);
+				}			
+			}
+			
+			
+			if (request.getUrl().contains(CONVIVA_REQUEST) && request.getPostData() != null) {
+				if (request.getPostData().getText().contains(keyword)) {
+					//System.out.format("%s %s %s %n", request.getMethod(), request.getUrl(), statusCode);
+					//System.out.println(request.getPostData().getText().substring(keyword.lastIndexOf(":")));
+					i = request.getPostData().getText().indexOf(keyword);
+					errorCode=request.getPostData().getText().substring(i+11, i+18);
+					System.out.format("Conviva errorCode: %s %n %n", errorCode);
 				}
 			}
-//		}		
-	    har.writeTo(new File("C:\\\\TestAutomation\\\\NetworkTraffic\\\\ziggo.har"));
+		}
+	    har.writeTo(new File(HAR_FILE_PATH));
 	    
 
 	}
-	  //    submitPerformanceResult("Test.testGoogleSearch", entries);
-
-	
-
 
 }
 

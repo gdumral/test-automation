@@ -37,10 +37,12 @@ import net.lightbody.bmp.core.har.HarEntry;
 import utils.CommonFunc;
 import utils.KeyActions;
 import utils.Utilities;
+import utils.Constants;
 
-public class CaptureLogTest {
+@SuppressWarnings("unused") 
+public class CaptureLogTest implements Constants {
 	
-	String baseUrl = "https://www.ziggogo.tv/nl.html";
+//	String baseUrl = "https://www.ziggogo.tv/nl.html";
 //	private ScreenshotHelper screenshotHelper;
 
 
@@ -50,31 +52,12 @@ public class CaptureLogTest {
 		BrowserMobProxy bmp = Utilities.startProxy();
 		WebDriver driver = Utilities.createWebDriver(bmp);
 							
-		CommonFunc.goTo(driver, baseUrl);
+		CommonFunc.goTo(driver, BASE_URL);
 		CommonFunc.playoutLiveChannel(driver);
-		CommonFunc.channelSwap(driver, 100);
+		CommonFunc.channelSwap(driver, 3);
 		
 		Utilities.captureNetworkTrace(bmp);
 		driver.quit();	
-	}
-
-
-
-	
-
-
-
-
-
-
-
-
-	
-
-
-
-	
-
-	
+	}	
 
 }

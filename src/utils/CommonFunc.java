@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class CommonFunc {
+
+@SuppressWarnings("unused") 
+public class CommonFunc implements Constants {
 
 	public static void goTo(WebDriver driver, String baseUrl) throws InterruptedException  {
 		driver.get(baseUrl);
@@ -31,8 +33,8 @@ public class CommonFunc {
 	
 	public static void login(WebDriver driver) throws InterruptedException{
 		KeyActions.findAndClick(driver,By.cssSelector("a.clickable-block.snippet-button.utility-bar-button"));
-		KeyActions.findAndSendKey(driver, By.id("USERNAME"), "lgtest");
-		KeyActions.findAndSendKey(driver, By.id("PASSWORD"), "S0ftware");
+		KeyActions.findAndSendKey(driver, By.id("USERNAME"), USER_NAME);
+		KeyActions.findAndSendKey(driver, By.id("PASSWORD"), PASSWORD);
 		KeyActions.findAndClick(driver, By.cssSelector("button.button.button--primary.login-form-button"));
 	}
 }
