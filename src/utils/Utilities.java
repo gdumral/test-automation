@@ -1,60 +1,37 @@
 package utils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.time.Duration;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import org.littleshoot.proxy.MitmManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.seleniumhq.jetty9.http.HttpMethod;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.sun.corba.se.spi.activation.Server;
-
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.Assert;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.core.har.HarEntry;
-import net.lightbody.bmp.core.har.HarPostData;
 import net.lightbody.bmp.core.har.HarRequest;
 import net.lightbody.bmp.core.har.HarResponse;
-import net.lightbody.bmp.mitm.KeyStoreFileCertificateSource;
-import net.lightbody.bmp.mitm.manager.ImpersonatingMitmManager;
 import net.lightbody.bmp.proxy.CaptureType;
 
- 
 
-@SuppressWarnings("unused") 
+//@SuppressWarnings("unused") 
 public class Utilities implements Constants {
 	
-//	System.setProperty("webdriver.chrome.driver", "/TestAutomation/chromedriver.exe");
-
 	//WebDriver is interface, ChromeDriver is class which implements the interface
-	private WebDriver driver;
+//	private WebDriver driver;
 	
 	//Create a new proxy server. Get the proxy server running. Return the instance to calling method
 	public static BrowserMobProxy startProxy() {
@@ -139,8 +116,7 @@ public class Utilities implements Constants {
 					System.out.println(request.getUrl() + " - " +  HTTP_504_ERROR);
 				}			
 			}
-			
-			
+						
 			if (request.getUrl().contains(CONVIVA_REQUEST) && request.getPostData() != null) {
 				if (request.getPostData().getText().contains(keyword)) {
 					//System.out.format("%s %s %s %n", request.getMethod(), request.getUrl(), statusCode);
@@ -151,24 +127,8 @@ public class Utilities implements Constants {
 				}
 			}
 		}
-	    har.writeTo(new File(HAR_FILE_PATH));
-	    
+	    har.writeTo(new File(HAR_FILE_PATH));   
 
 	}
 
 }
-
-
-
-//int statusCode = entry.getResponse().getStatus();
-//try{
-//	Assert.assertEquals(200, statusCode);
-//}catch (AssertionError e) {
-//	System.out.format("Error StatusCode: %d %s %n", statusCode, entry.getRequest().getUrl());
-//}
-
-	
-	
-
-
-

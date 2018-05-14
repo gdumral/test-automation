@@ -34,10 +34,6 @@ public class KeyActions {
 		WebElement el = driver.findElement(elementLocator);
 		for (int i = 0; i < count; i++) {		
 			action.dragAndDropBy(el, xOffset, yOffset).pause(Duration.ofSeconds(1)).click().pause(Duration.ofSeconds(2)).build().perform();
-//			Thread.sleep(5000);
-//			findAndClick(driver,By.cssSelector("div.hrz-player-controls-overlay"));
-//			findAndClick(driver,By.cssSelector("div.hrz-player-controls-overlay"));
-
 		}
 	}
 }

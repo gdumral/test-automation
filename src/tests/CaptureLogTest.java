@@ -42,10 +42,6 @@ import utils.Constants;
 @SuppressWarnings("unused") 
 public class CaptureLogTest implements Constants {
 	
-//	String baseUrl = "https://www.ziggogo.tv/nl.html";
-//	private ScreenshotHelper screenshotHelper;
-
-
 	@Test
 	public void openBrowser() throws InterruptedException, IOException {
 		//Initiate proxy server
