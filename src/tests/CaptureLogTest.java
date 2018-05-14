@@ -50,7 +50,7 @@ public class CaptureLogTest implements Constants {
 							
 		CommonFunc.goTo(driver, BASE_URL);
 		CommonFunc.playoutLiveChannel(driver);
-		CommonFunc.channelSwap(driver, 3);
+		CommonFunc.channelSwap(driver, 100);
 		
 		Utilities.captureNetworkTrace(bmp);
 		driver.quit();	
