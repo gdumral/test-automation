@@ -15,8 +15,16 @@ public class CommonFunc implements Constants {
 	
 	public static void playoutLiveChannel(WebDriver driver) throws InterruptedException {
 		login(driver);
-		openTVGuide(driver);
+		try {
+			openTVGuide(driver);
+		}catch(Exception e)
+		{
+			KeyActions.refresh(driver);
+			openTVGuide(driver);
+		}
 		KeyActions.findAndClick(driver,By.cssSelector("div.epg-grid-program-cell.epg-grid-program-cell--live > div.epg-grid-program-cell__container > div.epg-grid-program-cell__title"));
+
+//		KeyActions.findAndClick(driver,By.cssSelector("div.epg-grid-program-cell.epg-grid-program-cell--live > div.epg-grid-program-cell__container > div.epg-grid-program-cell__title"));
 		KeyActions.findAndClick(driver,By.cssSelector("button.button.button--primary.button-with-options"));
 	}
 	

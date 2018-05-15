@@ -4,8 +4,8 @@ public  interface Constants {
 	
 	public final String BASE_URL = "https://www.ziggogo.tv/nl.html";
 	public final String HAR_FILE_LABEL = "ziggo.nl";
-	public final String HAR_FILE_PATH = "C:\\\\TestAutomation\\\\NetworkTraffic\\\\ziggo.har";
-	public final String DRIVER_PATH = "C:\\TestAutomation\\chromedriver.exe";
+	public final String HAR_FILE_PATH = "NetworkTraffic/ziggo.har";
+	public final String DRIVER_PATH = "resources/chromedriver.exe";
 	public static final String USER_NAME = "lgtest";
 	public static final String PASSWORD = "S0ftware";
 	public static final String HTTP_400_ERROR = "HTTP 400 Bad Request";

@@ -7,11 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
-
-import utils.Constants;
-
-@SuppressWarnings("unused") 
 public class KeyActions {
 	
 	public static void findAndClick(WebDriver driver, By elementLocator) throws InterruptedException  {
@@ -21,6 +16,10 @@ public class KeyActions {
 	
 	public static void find(WebDriver driver, By elementLocator) throws InterruptedException  {
 		driver.findElement(elementLocator);
+	}
+	
+	public static void refresh(WebDriver driver) throws InterruptedException  {
+		driver.navigate().refresh();
 	}
 	
 	public static void findAndSendKey(WebDriver driver, By elementLocator, String key) throws InterruptedException {

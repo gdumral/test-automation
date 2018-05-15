@@ -27,7 +27,6 @@ import net.lightbody.bmp.core.har.HarResponse;
 import net.lightbody.bmp.proxy.CaptureType;
 
 
-//@SuppressWarnings("unused") 
 public class Utilities implements Constants {
 	
 	//WebDriver is interface, ChromeDriver is class which implements the interface
